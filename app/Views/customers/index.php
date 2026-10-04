@@ -1,37 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Customer Accounts</title>
-    <style>
-        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-    </style>
-</head>
-<body>
-    <h2>Customer Accounts</h2>
-    <table>
+<?= view('templates/header', ['title' => 'Customer Management']); ?>
+
+<div class="pos-card">
+    <div class="pos-card-header">
+        <h2 class="pos-card-title">Customer Records</h2>
+        <span class="badge-role">Active Database: tfa2_db</span>
+    </div>
+
+    <table class="pos-table">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Full Name</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Created At</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($customers as $customer): ?>
+            <?php if (!empty($customers) && is_array($customers)): ?>
+                <?php foreach ($customers as $customer): ?>
+                    <tr>
+                        <td><strong>#<?= esc($customer['id']); ?></strong></td>
+                        <td><?= esc($customer['name'] ?? $customer['customer_name'] ?? ''); ?></td>
+                        <td><?= esc($customer['email'] ?? ''); ?></td>
+                        <td><?= esc($customer['phone'] ?? ''); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
                 <tr>
-                    <td><?= esc($customer['id']) ?></td>
-                    <td><?= esc($customer['full_name']) ?></td>
-                    <td><?= esc($customer['email']) ?></td>
-                    <td><?= esc($customer['phone']) ?></td>
-                    <td><?= esc($customer['created_at']) ?></td>
+                    <td colspan="4" style="text-align: center;">No customer records found.</td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
-</body>
-</html>
+</div>
+
+<?= view('templates/footer'); ?>

@@ -8,8 +8,8 @@ class UserController extends BaseController
 {
     public function index()
     {
-        $model = new UserModel();
-        $data['users'] = $model->findAll(); // Replaces static array
+        $userModel = new UserModel();
+        $data['users'] = $userModel->findAll();
 
         return view('users/index', $data);
     }
